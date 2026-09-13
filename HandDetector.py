@@ -14,13 +14,13 @@ class HandDetector():
         min_hand_presence_confidence=0.5,
         min_tracking_confidence=0.5
     ):
+        # Set path to .task
         MODEL_PATH = Path(__file__).parent / "hand_landmarker.task"
         
         # Set options
         base_options = python.BaseOptions(
             model_asset_path=str(MODEL_PATH)
         )
-
         options = vision.HandLandmarkerOptions(
             base_options = base_options,
             num_hands = num_hands,
@@ -28,7 +28,9 @@ class HandDetector():
             min_hand_presence_confidence = min_hand_presence_confidence,
             min_tracking_confidence = min_tracking_confidence
         )
+        # Create detector object
         self.detector = vision.HandLandmarker.create_from_options(options)
+
 
     def findHands(self, frame, draw=True):
         # Change image format for mediapipe

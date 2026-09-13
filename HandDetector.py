@@ -1,9 +1,10 @@
 import cv2
 import mediapipe as mp
 import time
-
+from pathlib import Path
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
 
 class HandDetector():
     def __init__(
@@ -13,10 +14,13 @@ class HandDetector():
         min_hand_presence_confidence=0.5,
         min_tracking_confidence=0.5
     ):
+        MODEL_PATH = Path(__file__).parent / "hand_landmarker.task"
+        
         # Set options
         base_options = python.BaseOptions(
-            model_asset_path="hand_landmarker.task"
+            model_asset_path=str(MODEL_PATH)
         )
+
         options = vision.HandLandmarkerOptions(
             base_options = base_options,
             num_hands = num_hands,
